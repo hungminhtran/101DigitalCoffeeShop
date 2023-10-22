@@ -1,0 +1,1 @@
+GRANT ALL PRIVILEGES ON DATABASE coffee_shop TO postgres;

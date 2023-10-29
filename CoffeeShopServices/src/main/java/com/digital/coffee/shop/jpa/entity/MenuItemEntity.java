@@ -1,5 +1,6 @@
 package com.digital.coffee.shop.jpa.entity;
 
+import com.digital.coffee.shop.constants.MenuItemStatus;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +10,7 @@ public class MenuItemEntity implements Serializable {
     @Id private Long menuItemId;
     private String name;
     private Long price;
-    private Integer status;
+    private MenuItemStatus status;
 
     public Long getMenuItemId() {
         return menuItemId;
@@ -35,11 +36,11 @@ public class MenuItemEntity implements Serializable {
         this.price = price;
     }
 
-    public Integer getStatus() {
+    public MenuItemStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(MenuItemStatus status) {
         this.status = status;
     }
 }

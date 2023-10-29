@@ -1,6 +1,6 @@
 package com.digital.coffee.shop.jpa.entity;
 
-
+import com.digital.coffee.shop.constants.ShopQueueStatus;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class ShopQueueEntity implements Serializable {
     @Id private Long shopId;
     @Id private Long queueId;
-    private Integer status;
+    private ShopQueueStatus status;
 
     public Long getShopId() {
         return shopId;
@@ -27,11 +27,11 @@ public class ShopQueueEntity implements Serializable {
         this.queueId = queueId;
     }
 
-    public Integer getStatus() {
+    public ShopQueueStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(ShopQueueStatus status) {
         this.status = status;
     }
 }

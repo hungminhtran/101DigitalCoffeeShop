@@ -1,10 +1,10 @@
 package com.digital.coffee.shop.constants;
 
 public enum OrderStatus {
-    CREATED("created", 1),
-    PREPARING("preparing", 2),
-    COMPLETE("complete", 3),
-    CANCEL("cancel", 4);
+    CREATED("Created", 1),
+    PREPARING("Preparing", 2),
+    COMPLETE("Complete", 3),
+    CANCEL("Cancel", 4);
 
     private String statusName;
     private Integer statusCode;

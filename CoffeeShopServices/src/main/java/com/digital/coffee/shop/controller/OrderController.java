@@ -1,18 +1,20 @@
 package com.digital.coffee.shop.controller;
 
-import com.digital.coffee.shop.services.OrderServices;
-import javax.servlet.http.HttpServletResponse;
+import com.digital.coffee.shop.dto.PlaceOrderRequestBody;
+import com.digital.coffee.shop.dto.PlaceOrderResponseBody;
+import com.digital.coffee.shop.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("api/v1")
 public class OrderController {
-    @Autowired private OrderServices orderServices;
+    @Autowired private OrderService orderService;
 
-    @GetMapping(value = "/total-orders", produces = "application/json")
-    public String healthCheck(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_OK);
-        return orderServices.countTotalOrder().toString();
+    @PostMapping(value = "/order", consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public PlaceOrderResponseBody placeOrder(
+            @RequestBody PlaceOrderRequestBody placeOrderRequestBody) {
+        return orderService.placeOrder(placeOrderRequestBody);
     }
 }

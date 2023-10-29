@@ -47,18 +47,6 @@ paths:
                   messages: [ "Pure water is unavailable", "Coffee is unavailable" ],
                   orderId: 0
                 }
-        '409':
-          description: The precondition for the transaction is no longer valid, because the queue of current shop is full and/or the menu item status is invalid at the time of transaction commit.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PlaceOrderResponseBody'
-              example:
-                {
-                  statusCode: 409,
-                  messages: ["Could not place new order for current shop due to concurrency data update"],
-                  orderId: 0
-                }
 components:
   schemas:
     PlaceOrderRequestBody:

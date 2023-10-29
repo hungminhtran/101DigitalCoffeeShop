@@ -3,9 +3,8 @@ package com.digital.coffee.shop.controller;
 import com.digital.coffee.shop.dto.object.PlaceOrderRequestBody;
 import com.digital.coffee.shop.dto.object.PlaceOrderResponseBody;
 import com.digital.coffee.shop.services.OrderService;
-import java.util.Arrays;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,16 +15,10 @@ public class OrderController {
     @PostMapping(value = "/order", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public PlaceOrderResponseBody placeOrder(
-            @RequestBody PlaceOrderRequestBody placeOrderRequestBody) {
-
+            @RequestBody PlaceOrderRequestBody placeOrderRequestBody,
+            HttpServletResponse response) {
         PlaceOrderResponseBody responseBody = orderService.placeOrder(placeOrderRequestBody);
-        if (responseBody == null) {
-            responseBody = new PlaceOrderResponseBody();
-            responseBody.setStatusCode(HttpStatus.CONFLICT.value());
-            responseBody.setMessages(
-                    Arrays.asList(
-                            "Could not place new order for current shop due to concurrency data update"));
-        }
+        response.setStatus(responseBody.getStatusCode());
         return responseBody;
     }
 }

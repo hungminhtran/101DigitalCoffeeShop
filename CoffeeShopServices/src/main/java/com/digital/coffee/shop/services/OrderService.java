@@ -30,7 +30,7 @@ public class OrderService {
     private @Autowired StatsRepository statsRepository;
 
     /* PostGreSQL Isolation.REPEATABLE_READ can prevent phantom issue, which is good enough in this case*/
-    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ)
     public PlaceOrderResponseBody placeOrder(PlaceOrderRequestBody requestBody) {
         List<String> errorMessages = placeOrderRequestValidationService.validate(requestBody);
         if (errorMessages.size() > 0) {
@@ -108,6 +108,7 @@ public class OrderService {
         queueQueueItemEntity.setQueueItemId(queueItemEntity.getQueueItemId());
         queueQueueItemRepository.save(queueQueueItemEntity);
         PlaceOrderResponseBody responseBody = new PlaceOrderResponseBody();
+        responseBody.setStatusCode(HttpStatus.OK.value());
         responseBody.setOrderId(orderEntity.getOrderId());
         responseBody.setPaymentId(paymentEntity.getPaymentId());
         return responseBody;

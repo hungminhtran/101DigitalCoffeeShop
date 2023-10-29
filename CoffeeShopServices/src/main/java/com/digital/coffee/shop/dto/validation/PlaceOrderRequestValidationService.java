@@ -116,7 +116,7 @@ public class PlaceOrderRequestValidationService {
 
         for (Long promotionId : requestBody.getPromotionIds()) {
             if (orderPromotionRepository.countOrderPromotionEntityByPromotionId(promotionId) > 0) {
-                errorMessages.add("Promotion already used");
+                errorMessages.add("Promotion " + promotionId + " already used");
             }
             PromotionEntity promotionEntity = promotionEntityMap.get(promotionId);
             if (promotionEntity == null) {

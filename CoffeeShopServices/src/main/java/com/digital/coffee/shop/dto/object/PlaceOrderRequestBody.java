@@ -1,10 +1,10 @@
-package com.digital.coffee.shop.dto;
+package com.digital.coffee.shop.dto.object;
 
 import java.util.List;
 
 public class PlaceOrderRequestBody {
     private Long shopId;
-    private Long userId;
+    private Long customerId;
     private List<Long> menuItemIds;
     private List<Long> promotionIds;
 
@@ -16,12 +16,12 @@ public class PlaceOrderRequestBody {
         this.shopId = shopId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public List<Long> getMenuItemIds() {

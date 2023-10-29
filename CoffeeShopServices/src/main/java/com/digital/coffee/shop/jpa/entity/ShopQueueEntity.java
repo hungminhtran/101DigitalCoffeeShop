@@ -1,15 +1,27 @@
 package com.digital.coffee.shop.jpa.entity;
 
-import com.digital.coffee.shop.constants.ShopQueueStatus;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ShopQueueEntity implements Serializable {
-    @Id private Long shopId;
-    @Id private Long queueId;
-    private ShopQueueStatus status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long relationshipId;
+
+    private Long shopId;
+    private Long queueId;
+
+    public Long getRelationshipId() {
+        return relationshipId;
+    }
+
+    public void setRelationshipId(Long relationshipId) {
+        this.relationshipId = relationshipId;
+    }
 
     public Long getShopId() {
         return shopId;
@@ -25,13 +37,5 @@ public class ShopQueueEntity implements Serializable {
 
     public void setQueueId(Long queueId) {
         this.queueId = queueId;
-    }
-
-    public ShopQueueStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ShopQueueStatus status) {
-        this.status = status;
     }
 }

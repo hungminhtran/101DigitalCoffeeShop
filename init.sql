@@ -1,4 +1,5 @@
 GRANT ALL PRIVILEGES ON DATABASE coffee_shop TO postgres;
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -35,8 +36,7 @@ ALTER TABLE public.customer_entity OWNER TO postgres;
 CREATE TABLE public.menu_item_entity (
     menu_item_id bigint NOT NULL,
     name character varying(255),
-    price bigint,
-    status integer
+    price bigint
 );
 
 
@@ -202,9 +202,9 @@ ALTER TABLE public.shop_menu_item_entity OWNER TO postgres;
 --
 
 CREATE TABLE public.shop_queue_entity (
+    relationship_id bigint NOT NULL,
     shop_id bigint NOT NULL,
-    queue_id bigint NOT NULL,
-    status integer
+    queue_id bigint NOT NULL
 );
 
 
@@ -251,10 +251,10 @@ COPY public.customer_entity (customer_id, address, full_name, phone_number) FROM
 -- Data for Name: menu_item_entity; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.menu_item_entity (menu_item_id, name, price, status) FROM stdin;
-1	pure water	10	1
-2	tonic water	20	1
-3	arabica	30	1
+COPY public.menu_item_entity (menu_item_id, name, price) FROM stdin;
+1	pure water	10
+2	tonic water	20
+3	arabica	30
 \.
 
 
@@ -360,10 +360,10 @@ COPY public.shop_menu_item_entity (relationship_id, menu_item_id, shop_id) FROM 
 -- Data for Name: shop_queue_entity; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.shop_queue_entity (shop_id, queue_id, status) FROM stdin;
-1	3	1
-1	2	1
-1	1	1
+COPY public.shop_queue_entity (relationship_id, shop_id, queue_id) FROM stdin;
+1	1	3
+2	1	2
+3	1	1
 \.
 
 
@@ -492,7 +492,7 @@ ALTER TABLE ONLY public.shop_menu_item_entity
 --
 
 ALTER TABLE ONLY public.shop_queue_entity
-    ADD CONSTRAINT shop_queue_entity_pkey PRIMARY KEY (shop_id, queue_id);
+    ADD CONSTRAINT shop_queue_entity_pkey PRIMARY KEY (relationship_id);
 
 
 --
@@ -510,7 +510,3 @@ ALTER TABLE ONLY public.stats_entity
 ALTER TABLE ONLY public.user_password_entity
     ADD CONSTRAINT user_password_entity_pkey PRIMARY KEY (user_id);
 
-
---
--- PostgreSQL database dump complete
---

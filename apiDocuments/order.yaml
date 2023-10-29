@@ -15,10 +15,10 @@ paths:
               $ref: '#/components/schemas/PlaceOrderRequestBody'
             example:
               {
-                shopId: 3,
-                userId: 10,
-                menuItemIds: [1, 2, 3],
-                promotionIds: [5, 7]
+                "shopId": 11,
+                "customerId": 1,
+                "menuItemIds": [ 1, 2, 3 ],
+                "promotionIds": [1, 2, 3]
               }
         required: true
       responses:
@@ -31,10 +31,11 @@ paths:
               example:
                 {
                   statusCode: 200,
-                  message: "New order successfully placed.",
-                  orderId: 1234
+                  messages: [ "New order successfully placed." ],
+                  orderId: 1234,
+                  paymentId: 12
                 }
-        '405':
+        '400':
           description: Input validation has failed.
           content:
             application/json:
@@ -42,8 +43,8 @@ paths:
                 $ref: '#/components/schemas/PlaceOrderResponseBody'
               example:
                 {
-                  statusCode: 405,
-                  message: "Input validation has failed.",
+                  statusCode: 400,
+                  messages: [ "Pure water is unavailable", "Coffee is unavailable" ],
                   orderId: 0
                 }
         '409':
@@ -55,7 +56,7 @@ paths:
               example:
                 {
                   statusCode: 409,
-                  message: "The queue of shop is full.",
+                  messages: ["Could not place new order for current shop due to concurrency data update"],
                   orderId: 0
                 }
 components:
@@ -66,7 +67,7 @@ components:
         shopId:
           type: integer
           format: int64
-        userId:
+        customerId:
           type: integer
           format: int64
         menuItemIds:
@@ -85,8 +86,13 @@ components:
         statusCode:
           type: integer
           format: int32
-        message:
-          type: string
+        messages:
+          type: array
+          items:
+            type: string
         orderId:
+          type: integer
+          format: int64
+        paymentId:
           type: integer
           format: int64

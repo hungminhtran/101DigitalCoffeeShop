@@ -4,13 +4,18 @@ import com.digital.coffee.shop.constants.OrderStatus;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class OrderEntity implements Serializable {
-    @Id private Long orderId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+
     private Long shopId;
-    private Long userId;
+    private Long customerId;
     private Long paymentId;
     private OrderStatus orderStatus;
     private Date createdAt;
@@ -31,12 +36,12 @@ public class OrderEntity implements Serializable {
         this.shopId = shopId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public Long getPaymentId() {

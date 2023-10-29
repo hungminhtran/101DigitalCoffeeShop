@@ -1,8 +1,8 @@
 package com.digital.coffee.shop.constants;
 
 public enum PaymentStatus {
-    CREATED("Paid", 1),
-    PREPARING("Pending", 2);
+    PAID("Paid", 1),
+    PENDING("Pending", 2);
 
     private String statusName;
     private Integer statusCode;

@@ -2,14 +2,19 @@ package com.digital.coffee.shop.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class PromotionEntity implements Serializable {
-    @Id private Long promotionId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long promotionId;
+
     private Long shopId;
     private Long customerId;
-    private Float promotionValue;
+    private Long promotionValue;
 
     public Long getPromotionId() {
         return promotionId;
@@ -35,11 +40,11 @@ public class PromotionEntity implements Serializable {
         this.customerId = customerId;
     }
 
-    public Float getPromotionValue() {
+    public Long getPromotionValue() {
         return promotionValue;
     }
 
-    public void setPromotionValue(Float promotionValue) {
+    public void setPromotionValue(Long promotionValue) {
         this.promotionValue = promotionValue;
     }
 }

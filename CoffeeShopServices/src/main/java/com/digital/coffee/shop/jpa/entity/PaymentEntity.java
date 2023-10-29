@@ -4,11 +4,16 @@ import com.digital.coffee.shop.constants.PaymentStatus;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class PaymentEntity implements Serializable {
-    @Id private Long paymentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long paymentId;
+
     private Long merchandiseSubTotal;
     private Long promotionSubtotal;
     private PaymentStatus paymentStatus;

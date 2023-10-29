@@ -2,11 +2,16 @@ package com.digital.coffee.shop.jpa.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class StatsEntity implements Serializable {
-    @Id private Long statsId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long statsId;
+
     private Long shopId;
     private Long menuItemId;
     private Long totalPreparingTime;

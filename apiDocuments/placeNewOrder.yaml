@@ -5,15 +5,14 @@ info:
 servers:
   - url: /api/v1/
 paths:
-  /orders:
+  /order:
     post:
-      summary: place new orders
-      operationId: placeOrders
+      summary: Place new order
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PlaceOrdersRequestBody'
+              $ref: '#/components/schemas/PlaceOrderRequestBody'
             example:
               {
                 shopId: 3,
@@ -28,46 +27,46 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlaceOrdersResponseBody'
+                $ref: '#/components/schemas/PlaceOrderResponseBody'
               example:
                 {
                   statusCode: 200,
                   message: "New order successfully placed.",
-                  order_id: 1234
+                  orderId: 1234
                 }
         '405':
           description: Input validation has failed.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlaceOrdersResponseBody'
+                $ref: '#/components/schemas/PlaceOrderResponseBody'
               example:
                 {
                   statusCode: 405,
                   message: "Input validation has failed.",
-                  order_id: 0
+                  orderId: 0
                 }
         '409':
           description: The precondition for the transaction is no longer valid, because the queue of current shop is full and/or the menu item status is invalid at the time of transaction commit.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlaceOrdersResponseBody'
+                $ref: '#/components/schemas/PlaceOrderResponseBody'
               example:
                 {
                   statusCode: 409,
                   message: "The queue of shop is full.",
-                  order_id: 0
+                  orderId: 0
                 }
-components: 
+components:
   schemas:
-    PlaceOrdersRequestBody:
+    PlaceOrderRequestBody:
       type: object
       properties:
         shopId:
           type: integer
           format: int64
-        user_id:
+        userId:
           type: integer
           format: int64
         menuItemIds:
@@ -80,7 +79,7 @@ components:
           items:
             type: integer
             format: int64
-    PlaceOrdersResponseBody:
+    PlaceOrderResponseBody:
       type: object
       properties:
         statusCode:

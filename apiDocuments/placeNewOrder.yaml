@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Coffee shop
+  version: 1.0.0
+servers:
+  - url: /api/v1/
+paths:
+  /orders:
+    post:
+      summary: place new orders
+      operationId: placeOrders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaceOrdersRequestBody'
+            example:
+              {
+                shopId: 3,
+                userId: 10,
+                menuItemIds: [1, 2, 3],
+                promotionIds: [5, 7]
+              }
+        required: true
+      responses:
+        '200':
+          description: New order successfully placed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceOrdersResponseBody'
+              example:
+                {
+                  statusCode: 200,
+                  message: "New order successfully placed.",
+                  order_id: 1234
+                }
+        '405':
+          description: Input validation has failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceOrdersResponseBody'
+              example:
+                {
+                  statusCode: 405,
+                  message: "Input validation has failed.",
+                  order_id: 0
+                }
+        '409':
+          description: The precondition for the transaction is no longer valid, because the queue of current shop is full and/or the menu item status is invalid at the time of transaction commit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceOrdersResponseBody'
+              example:
+                {
+                  statusCode: 409,
+                  message: "The queue of shop is full.",
+                  order_id: 0
+                }
+components: 
+  schemas:
+    PlaceOrdersRequestBody:
+      type: object
+      properties:
+        shopId:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+        menuItemIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        promotionIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    PlaceOrdersResponseBody:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        orderId:
+          type: integer
+          format: int64
